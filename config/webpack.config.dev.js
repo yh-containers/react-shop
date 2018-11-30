@@ -323,21 +323,11 @@ module.exports = {
             // its runtime that would otherwise be processed through "file" loader.
             // Also exclude `html` and `json` extensions so they get processed
             // by webpacks internal loaders.
-            exclude: [/\.(js|mjs|jsx|ts|tsx|svg)$/, /\.html$/, /\.json$/],
+            exclude: [/\.(js|mjs|jsx|ts|tsx)$/, /\.html$/, /\.json$/],
             loader: require.resolve('file-loader'),
             options: {
               name: 'static/media/[name].[hash:8].[ext]',
             },
-          },
-          {
-              test: /\.svg$/,
-              include: [
-                  path.resolve(__dirname, '../src/assets'),
-              ],
-              loader: 'svg-sprite-loader?' + JSON.stringify({
-                  name: '[name]',
-                  prefixize: true,
-              }),
           },
         ],
       },

@@ -1,23 +1,26 @@
-import React, {Component, Fragment} from 'react';
+import React, { Component } from 'react';
+import logo from './logo.svg';
 import './App.css';
-import IndexContainer from "./containers/Index";
-import {Flex} from "antd-mobile/lib/flex";
-import Foot from "./components/Foot";
 
 class App extends Component {
   render() {
     return (
-
-      <Fragment>
-          <Flex direction="column">
-              <Flex.Item className="content">
-                  {this.props.children}
-              </Flex.Item>
-              <Flex.Item className="foot">
-                  <Foot/>
-              </Flex.Item>
-          </Flex>
-      </Fragment>
+      <div className="App">
+        <header className="App-header">
+          <img src={logo} className="App-logo" alt="logo" />
+          <p>
+            Edit <code>src/App.js</code> and save to reload.
+          </p>
+          <a
+            className="App-link"
+            href="https://reactjs.org"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Learn React
+          </a>
+        </header>
+      </div>
     );
   }
 }
