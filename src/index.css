@@ -7,7 +7,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
+* { touch-action: pan-y; }
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
@@ -37,3 +37,71 @@ html,body{
 a{
   color:#000;
 }
+
+.slice-block{
+  border-bottom: 1px solid #dcdcdc;
+}
+.slice-block .am-flexbox-item{
+  height: 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.slice-block .am-flexbox-item img{
+  height: 45px;
+  width: 45px;
+  border-radius: 50%;
+}
+.slice-block .am-flexbox-item span{
+  display: inline-block;
+  margin-top: 8px;
+  font-size: 12px;
+  width: 100%;
+  white-space: nowrap;
+  text-align: center;
+}
+
+/*商品列表*/
+.goods-list{
+  width: inherit;
+  height: 220px;
+  border: 1px solid #dcdcdc;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.goods-list>img{
+  margin: 5px;
+  height: 120px;
+}
+.goods-list>.name{
+  font-size: 18px;
+  padding:0 6px;
+  word-break: break-all;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  height:40px;
+
+}
+.goods-list>.info{
+  height: 20px;
+  padding: 9px;
+  display: flex;
+  justify-content: space-between;
+}
+.goods-list>.info .price{
+  font-size: 16px;
+  color: #ff4444;
+}
+.goods-list>.info .view{
+  padding: 3px;
+  display: flex;
+  color: #ccc;
+  align-items: center;
+}
+.goods-list>.info .view span:first-child:after{
+  content: "|";
+  margin: 0 6px;
+}
+

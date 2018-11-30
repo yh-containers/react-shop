@@ -1,37 +1,46 @@
-import React, {Component} from 'react';
-import { Carousel, WingBlank } from 'antd-mobile';
+import React, {Component, Fragment} from 'react';
+import { Carousel,Card } from 'antd-mobile';
+import IndexSlice from "./Index.slice";
+import GoodsListContainer from "./GoodsList";
 
 class IndexContainer extends Component {
-    state = {
-        data: ['1', '2', '3'],
-        imgHeight: 176,
+
+
+    constructor(props) {
+        super(props)
+        this.state={
+            images: {
+                imgHeight: 176,
+                data:[
+                {
+                    title:'one',
+                    url :require('../assets/images/flow-index1.png')
+                },
+                {
+                    title:'two',
+                    url :require('../assets/images/flow-index2.png')
+                },
+                {
+                    title:'three',
+                    url :require('../assets/images/flow-index3.png')
+                }]
+            },
+        }
     }
-    componentDidMount() {
-        // simulate img loading
-        setTimeout(() => {
-            this.setState({
-                data: ['AiyWuByWklrrUDlFignR', 'TekJlZRVCjLFexlOCuWn', 'IJOtIlfsYdTyaDTRVrLI'],
-            });
-        }, 100);
-    }
+
     render() {
         return (
-            <div>
-            <WingBlank>
-                <Carousel
-                    autoplay={false}
-                    infinite
-                    beforeChange={(from, to) => console.log(`slide from ${from} to ${to}`)}
-                    afterChange={index => console.log('slide to', index)}
-                >
-                    {this.state.data.map(val => (
-                        <a
-                            key={val}
-                            href="http://www.alipay.com"
-                            style={{ display: 'inline-block', width: '100%', height: this.state.imgHeight }}
-                        >
+            <Fragment>
+                <div>
+                    <Carousel
+                        autoplay={true}
+                        infinite={true}
+                    >
+                        {this.state.images.data.map((val,index) => (
+
                             <img
-                                src={`https://zos.alipayobjects.com/rmsportal/${val}.png`}
+                                key ={'flow-img'+index}
+                                src={val.url}
                                 alt=""
                                 style={{ width: '100%', verticalAlign: 'top' }}
                                 onLoad={() => {
@@ -40,11 +49,25 @@ class IndexContainer extends Component {
                                     this.setState({ imgHeight: 'auto' });
                                 }}
                             />
-                        </a>
-                    ))}
-                </Carousel>
-            </WingBlank>
-            </div>
+                        ))}
+                    </Carousel>
+                </div>
+
+                <IndexSlice/>
+
+                <Card>
+                    <Card.Header
+                        title="This is title"
+                        thumb="https://gw.alipayobjects.com/zos/rmsportal/MRhHctKOineMbKAZslML.jpg"
+                        extra={<span>this is extra</span>}
+                    />
+                    <Card.Body>
+                        <div>This is content of `Card`</div>
+                    </Card.Body>
+                    <Card.Footer content="footer content" extra={<div>extra footer content</div>} />
+                </Card>
+                <GoodsListContainer/>
+            </Fragment>
         );
     }
 }
