@@ -32,3 +32,8 @@ html,body{
   width: 100%;
   flex: none;
 }
+
+
+a{
+  color:#000;
+}

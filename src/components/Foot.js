@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { TabBar,Icon } from 'antd-mobile';
+import { TabBar } from 'antd-mobile';
 import {Link} from 'react-router-dom'
 import {CustomIcon} from "../assets/fonts/iconfont/CustomIcon";
 
@@ -8,6 +8,11 @@ import {CustomIcon} from "../assets/fonts/iconfont/CustomIcon";
 
 
 class Foot extends Component {
+
+    static defaultProps = {
+        default_color:'#000000',
+        choose_color:'#f44444'
+    }
 
     constructor(props){
 
@@ -41,16 +46,19 @@ class Foot extends Component {
 
     render() {
         return (
-            <TabBar>
+            <TabBar
+                tintColor={this.props.choose_color}
+                unselectedTintColor={this.props.default_color}
+            >
                 {this.state.page.map(function(value,index){
                     return (
                         <TabBar.Item key={'foot-tab-bar'+index}
                                      icon = {
                                          <Link to={value.href}>
-                                             <CustomIcon type={value.icon}/>
+                                             <CustomIcon type={value.icon} color={this.props.default_color}/>
                                          </Link>
                                      }
-                                     selectedIcon ={<Icon type='check' />}
+                                     selectedIcon ={<CustomIcon type={value.icon}  color={this.props.choose_color}/>}
                                      title={value.title}
                                      selected={this.state.selectedTab === value.href}
                                      onPress={() => {
