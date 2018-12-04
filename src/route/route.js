@@ -3,9 +3,19 @@ import CartContainer from "../containers/Cart";
 import CateContainer from "../containers/Cate";
 import MineContainer from "../containers/Mine";
 import RootContainer from "../containers/Root";
+import GoodsDetailContainer from "../containers/GoodsDetail";
 
 export  const routes = [
+
     {
+        path:'/goods-detail/:id',
+        exact:true,
+        strict:true,
+        component: GoodsDetailContainer
+    },
+
+    {
+        path:'/',
         component:RootContainer,
         routes:[
             {

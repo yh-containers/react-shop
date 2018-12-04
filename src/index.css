@@ -64,44 +64,442 @@ a{
 
 /*商品列表*/
 .goods-list{
+  padding-top: 5px;
   width: inherit;
-  height: 220px;
-  border: 1px solid #dcdcdc;
+  height: 180px;
+  /*border: 1px solid #dcdcdc;*/
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
-.goods-list>img{
-  margin: 5px;
+.goods-list a{
+  padding: 0 3px;
+  height: inherit;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.goods-list img{
+  width: 100%;
   height: 120px;
 }
-.goods-list>.name{
-  font-size: 18px;
+.goods-list .name{
+  font-size: 14px;
   padding:0 6px;
-  word-break: break-all;
-  -webkit-box-orient: vertical;
   overflow: hidden;
-  height:40px;
+  white-space: pre;
+  text-overflow: ellipsis;
 
 }
-.goods-list>.info{
+.goods-list .info{
   height: 20px;
-  padding: 9px;
+  margin:3px 3px;
   display: flex;
   justify-content: space-between;
 }
-.goods-list>.info .price{
-  font-size: 16px;
+.goods-list .info .price{
+  font-size: 10px;
   color: #ff4444;
 }
-.goods-list>.info .view{
+.goods-list .info .view{
   padding: 3px;
   display: flex;
   color: #ccc;
   align-items: center;
 }
-.goods-list>.info .view span:first-child:after{
+.goods-list .info .view span:first-child:after{
   content: "|";
   margin: 0 6px;
 }
+/*调整navbar信息*/
+
+/*调整卡片css*/
+.mod-card-padding {
+  padding: 3px!important;
+}
+/*商品块作用域*/
+.goods-block{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.goods-block .goods-list{
+  width: 49%;
+  border: 1px solid #dcdcdc;
+  margin-bottom: 5px;
+}
+/*商品详情*/
+#goods-detail {
+  display: flex;
+  flex-direction: column;
+
+}
+#goods-detail .nav-block .am-navbar-title{
+  flex: 3;
+  justify-content: space-around;
+}
+#goods-detail .info-block{
+  flex: 1;
+  overflow: auto;
+}
+#goods-detail .info-block .goods-info{
+  display: flex;
+  flex-direction: column;
+  padding: 3px;
+  background: white;
+  border-bottom: 1px solid #dcdcdc;
+}
+#goods-detail .info-block .goods-info .name,#goods-detail .info-block .goods-info .intro{
+  font-size: 24px;
+  color: black;
+  font-weight: bold;
+  word-wrap: break-word;
+  line-height: 18px;
+}
+
+#goods-detail .info-block .goods-info .intro{
+  font-size: 16px;
+  font-weight: 600;
+  color: #e78f40;
+}
+#goods-detail .info-block .goods-info .info-block{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 8px;
+}
+#goods-detail .info-block .goods-info .info-block .price{
+  display: flex;
+  align-items: flex-end;
+  font-size: 18px;
+  color:#0c0c0c;
+}
+#goods-detail .info-block .goods-info .info-block .price span{
+  font-size: 26px;
+  color: #ff4444;
+}
+
+#goods-detail .info-block .goods-info .info-block .number{
+  display: flex;
+  align-self: flex-end;
+}
+#goods-detail .info-block .goods-info .info-block .stock,
+#goods-detail .info-block .goods-info .info-block .view{
+  color: #dcdcdc;
+}
+#goods-detail .info-block .goods-info .info-block .stock:after{
+  content: "|";
+  margin: 0 5px;
+}
+#goods-detail .info-block  .list-block {
+  margin-top: 8px;
+}
+#goods-detail .info-block  .list-block .attr-block{
+  display: flex;
+}
+#goods-detail .info-block  .list-block .attr-block .name{
+  flex: 2;
+  display: flex;
+  color: #585858;
+  justify-content: center;
+  align-items: center;
+}
+#goods-detail .info-block  .list-block .am-list-item{
+  flex: 10;
+  min-height: 35px;
+}
+#goods-detail .info-block .list-block .am-list-content{
+  font-size: 14px;
+}
+#goods-detail .info-block .list-block .comment-list{
+  padding: 0;
+}
+#goods-detail .info-block .list-block .comment-list .am-list-line{
+  padding: 0;
+}
+#goods-detail .info-block .list-block .comment-list .am-list-line .am-list-content{
+  padding-top: 0;
+}
+
+#goods-detail #goods-foot{
+  height: 50px;
+  display: flex;
+  justify-content: space-between;
+  border-top:1px solid #dcdcdc;
+}
+
+#goods-detail #goods-foot .item{
+  flex: 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+#goods-detail #goods-foot .item.add-cart{
+  flex: 6;
+  background: #4c95ff;
+  color: white;
+  font-size: 16px;
+}
+#goods-detail #goods-foot .item.buy{
+  flex: 6;
+  background: #ff4444;
+  color: white;
+  font-size: 16px;
+}
+#goods-detail #goods-foot .item.coll{
+  border-right: 1px solid #dcdcdc;
+}
+/*分类页面数据*/
+.cate-page.tab-name{
+  /*border-bottom: 1px solid #dcdcdc;*/
+  width: 80px;
+  overflow: hidden;
+  white-space: pre;
+}
+.cate-page-content{
+  display: flex;
+  background: #ffffff;
+  padding: 3px 5px;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.cate-page-content .goods-list{
+  margin-bottom: 5px;
+  width: 49%;
+  border: 1px solid #dcdcdc;
+}
+
+/*购物车*/
+#cart-page{
+  display: flex;
+  flex-direction: column;
+  height: inherit;
+}
+#cart-page .goods-cart-block{
+  flex:1;
+  overflow: auto;
+
+}
+#cart-page .handle-block{
+  height: 44px;
+}
+.goods-slice{
+  margin: 5px 3px;
+}
+.goods-slice{
+  margin: 5px 3px;
+}
+.goods-slice .am-list-header{
+  padding: 0;
+}
+.goods-slice .goods-block{
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.goods-slice  .am-list-item .am-list-line{
+  flex: 1;
+}
+
+.goods-slice .am-list-body .goods-block img{
+  height: 70px;
+  width:  70px;
+  padding: 0 8px;
+}
+.goods-slice .am-list-body .goods-block .info{
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.goods-slice .am-list-body .goods-block .info .name{
+  color: black;
+  font-size: 16px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+
+}
+.goods-slice .am-list-body .goods-block .info .attr{
+  color: #cccccc;
+  font-size: 14px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.goods-slice .am-list-body .goods-block .info .view{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.goods-slice .am-list-body .goods-block .info .view .price{
+  color: #ff4444;
+}
+.goods-slice .am-list-body .goods-block .info .view .am-stepper.showNumber{
+  width: 100px;
+}
+#cart-page .handle-block{
+
+}
+#cart-page .handle-block .am-list-line{
+  padding-right: 0;
+}
+#cart-page .handle-block .info{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+#cart-page .handle-block .info .container{
+  display: flex;
+}
+#cart-page .handle-block .info .container .price{
+  color: #ff4444;
+}
+#cart-page .handle-block .info .am-button{
+  width: 120px;
+}
+#cart-page .handle-block .btn-edit{
+  display: flex;
+}
+#cart-page .handle-block .btn-edit .am-button{
+  width: min-content;
+  margin-right: 5px;
+}
+/*我的页面*/
+#mine-page{
+
+}
+#mine-page .header{
+  height: 160px;
+  background: #78a0cc;
+  display: flex;
+  align-items: center;
+}
+#mine-page .header .header-url{
+  min-width: 100px;
+  height: 100%;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#mine-page .header .header-url img{
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+}
+
+#mine-page .header .name{
+  font-size: 16px;
+  color: black;
+}
+
+#mine-page .header .other{
+  flex: 1;
+  font-size: 16px;
+  color: black;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  height: 100%  ;
+}
+
+#mine-page .header .other div{
+  padding: 20px;
+}
+
+
+#mine-page .list-block{
+  margin-top: 8px;
+}
+
+#mine-page .list-block .order{
+  height: 80px;
+}
+
+#mine-page .list-block .order .am-list-body{
+  height: inherit;
+
+}
+#mine-page .list-block .order .am-list-body .am-flexbox-align-center{
+  height: inherit;
+
+}
+#mine-page .list-block .order .am-list-body .am-flexbox-align-center .am-flexbox-item{
+  height: inherit;
+
+}
+#mine-page .list-block .order .am-list-body .am-flexbox-item{
+  height: inherit;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-right: 1px solid #dcdcdc;
+}
+#mine-page .list-block .order .am-list-body .am-flexbox-item a{
+  height: inherit;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+#mine-page .list-block .order .am-list-body .am-flexbox-item:last-child{
+  border-right: none;
+}
+
+#mine-page .show-block{
+  height: 80px;
+  background: #fff;
+}
+#mine-page .show-block .am-flexbox-item{
+  height: inherit;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#mine-page .show-block .am-flexbox-item a{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: inherit;
+}
+
+#mine-page .show-block .am-flexbox-item .number{
+  font-size: 24px;
+  color: #cccccc;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

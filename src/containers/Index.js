@@ -1,7 +1,9 @@
 import React, {Component, Fragment} from 'react';
 import { Carousel,Card } from 'antd-mobile';
 import IndexSlice from "./Index.slice";
-import GoodsListContainer from "./GoodsList";
+import GoodsList from "../components/GoodsList";
+
+import {axiosInstance} from '../axios.service'
 
 class IndexContainer extends Component {
 
@@ -26,6 +28,12 @@ class IndexContainer extends Component {
                 }]
             },
         }
+    }
+
+    componentDidMount()
+    {
+
+        axiosInstance.get("goods/listData")
     }
 
     render() {
@@ -57,16 +65,19 @@ class IndexContainer extends Component {
 
                 <Card>
                     <Card.Header
-                        title="This is title"
-                        thumb="https://gw.alipayobjects.com/zos/rmsportal/MRhHctKOineMbKAZslML.jpg"
-                        extra={<span>this is extra</span>}
+                        title="热门商品"
                     />
-                    <Card.Body>
-                        <div>This is content of `Card`</div>
+                    <Card.Body className="mod-card-padding">
+                        <div className="goods-block hot-goods">
+                            <GoodsList/>
+                            <GoodsList/>
+                            <GoodsList/>
+                        </div>
                     </Card.Body>
-                    <Card.Footer content="footer content" extra={<div>extra footer content</div>} />
                 </Card>
-                <GoodsListContainer/>
+
+
+
             </Fragment>
         );
     }

@@ -1,15 +1,18 @@
 import React, {Component, Fragment} from 'react';
-import { Flex ,Icon} from 'antd-mobile';
+import { Flex } from 'antd-mobile';
 import Foot from "../components/Foot";
-import { renderRoutes } from 'react-router-config'
-
+import { renderRoutes,matchRoutes } from 'react-router-config'
 class RootContainer extends Component {
 
+    /*redirect uri*/
+    onHandleRedirect(uri){
+        var {history}= this.props
+        history.push(uri)
+    }
 
     render() {
         //路由组件获取
         var {route}= this.props
-
 
 
         return (
@@ -20,7 +23,7 @@ class RootContainer extends Component {
 
                     </Flex.Item>
                     <Flex.Item className="foot">
-                        <Foot/>
+                        <Foot handleRedirect={this.onHandleRedirect.bind(this)}/>
                     </Flex.Item>
                 </Flex>
             </Fragment>

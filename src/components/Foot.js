@@ -1,17 +1,12 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types'
 import { TabBar } from 'antd-mobile';
-import {Link} from 'react-router-dom'
 import {CustomIcon} from "../assets/fonts/iconfont/CustomIcon";
 
 
-
-
-
 class Foot extends Component {
-
-    static defaultProps = {
-        default_color:'#000000',
-        choose_color:'#f44444'
+    static propTypes = {
+        handleRedirect:PropTypes.func,
     }
 
     constructor(props){
@@ -44,6 +39,14 @@ class Foot extends Component {
         }
     }
 
+    componentDidMount()
+    {
+        this.setState({
+            selectedTab:window.location.pathname ? window.location.pathname : '/'
+        })
+    }
+
+
     render() {
         return (
             <TabBar
@@ -54,9 +57,7 @@ class Foot extends Component {
                     return (
                         <TabBar.Item key={'foot-tab-bar'+index}
                                      icon = {
-                                         <Link to={value.href}>
                                              <CustomIcon type={value.icon} color={this.props.default_color}/>
-                                         </Link>
                                      }
                                      selectedIcon ={<CustomIcon type={value.icon}  color={this.props.choose_color}/>}
                                      title={value.title}
@@ -65,6 +66,7 @@ class Foot extends Component {
                                         this.setState({
                                             selectedTab:value.href
                                         })
+                                         this.props.handleRedirect(value.href)
                                      }}
                         />
                     )
