@@ -1,7 +1,7 @@
 import React, {Component, Fragment} from 'react';
 import { Flex } from 'antd-mobile';
 import Foot from "../components/Foot";
-import { renderRoutes,matchRoutes } from 'react-router-config'
+import { renderRoutes } from 'react-router-config'
 class RootContainer extends Component {
 
     /*redirect uri*/

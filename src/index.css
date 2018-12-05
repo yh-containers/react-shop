@@ -252,24 +252,46 @@ a{
   border-right: 1px solid #dcdcdc;
 }
 /*分类页面数据*/
-.cate-page.tab-name{
-  /*border-bottom: 1px solid #dcdcdc;*/
-  width: 80px;
-  overflow: hidden;
-  white-space: pre;
-}
-.cate-page-content{
+#cate-page{
   display: flex;
-  background: #ffffff;
-  padding: 3px 5px;
+  height: inherit;
+}
+#cate-page .cate-list{
+  width: 80px;
+  height: inherit;
+  padding-left: 0;
+  margin: 0 0;
+  text-align: center;
+  border-right: 1px solid #dcdcdc;
+  overflow: auto;
+}
+#cate-page .cate-list li{
+  list-style-type: none;
+  padding: 10px 0;
+  font-size: 16px;
+  background: #fff;
+  border-bottom: 1px solid #dcdcdc;
+}
+#cate-page .cate-list li.active{
+  background: #dcdcdc;
+  color: #fff;
+}
+#cate-page .content{
+  flex: 1;
+  height: inherit;
+  overflow: auto;
+}
+#cate-page .content .cate-goods-list{
+  display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
 }
-.cate-page-content .goods-list{
-  margin-bottom: 5px;
+
+#cate-page .content .cate-goods-list .goods-list{
   width: 49%;
   border: 1px solid #dcdcdc;
 }
+
 
 /*购物车*/
 #cart-page{

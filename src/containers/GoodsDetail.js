@@ -1,9 +1,17 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types'
+import {connect} from 'react-redux'
 import {Carousel,NavBar,Icon, Badge,List,Card} from "antd-mobile";
 import {CustomIcon} from "../assets/fonts/iconfont/CustomIcon";
 
-class GoodsDetailContainer extends Component {
+import WrapWithAjaxData from "../components/WrapWithAjaxData";
+import {initGoodsData} from '../reducers/goodsDetail'
 
+
+class GoodsDetailContainer extends Component {
+    static propTypes = {
+        initGoodsData:PropTypes.func
+    }
     constructor(props) {
         super(props)
         this.state={
@@ -25,6 +33,10 @@ class GoodsDetailContainer extends Component {
             },
         }
     }
+
+
+
+
 
     render() {
         return (
@@ -176,4 +188,19 @@ class GoodsDetailContainer extends Component {
     }
 }
 
-export default GoodsDetailContainer;
+GoodsDetailContainer = WrapWithAjaxData(GoodsDetailContainer, ['goods-detail','initGoodsData'])
+
+const mapStateProps = (state)=>{
+    return {
+        detail_data:state.goodsDetail.detail_data
+    }
+}
+const mapDispatchProps = (dispatch)=>{
+    return {
+        initGoodsData:(detail_data)=>{
+            dispatch(initGoodsData(detail_data))
+        }
+    }
+}
+
+export default connect(mapStateProps,mapDispatchProps)(GoodsDetailContainer);

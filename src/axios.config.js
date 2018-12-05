@@ -1,5 +1,8 @@
 export default {
     url: {
-        'get-list': 'goods/listData'
+        'goods-list-data'       : ['goods/listData','get'],
+        'ad-flow-images'        : ['ad/flowImages','get'],
+        'goods-cate'            : ['goods/cate','get'],
+        'goods-detail'          : ['goods/detail','get'],
     }
 }
