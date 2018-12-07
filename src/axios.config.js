@@ -1,3 +1,5 @@
+
+export const BASE_URL= 'http://127.0.0.1:8082/api.php/';
 export default {
     url: {
         'goods-list-data'       : ['goods/listData','get'],

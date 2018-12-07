@@ -1,0 +1,55 @@
+import React, {Component} from 'react';
+import service from "../axios.service";
+/*
+* ajax请求服务器获取数据
+* */
+// export default (WrappedComponent,uri,handle_func,req_data={},ttl=false,cache_name='')=>{
+export default (WrappedComponent,req_info=[])=>{
+
+    class WrapWithAjaxData extends Component {
+
+        constructor(props) {
+            super(props)
+            this.state = {
+                ajax_data:null
+            }
+        }
+
+        async componentWillMount (){
+            var ajax_data = [];
+            for(let i=0;i<req_info.length;i++) {
+                let [uri,source_func='',req_data='']= req_info[i];
+                if(typeof req_data ==='string'){
+                    req_data = req_data?this.props[req_data]:{}
+                }
+
+            const ajax_data = await service({
+                    url: uri,
+                    // method: 'post',
+                    // dataType: "json",
+                    // contentType: "application/x-www-form-urlencoded;charset=UTF-8",
+                    data: req_data
+                })
+                console.log(ajax_data)
+                this.setState({
+                    ajax_data:ajax_data
+                })
+                console.log(this.state.ajax_data)
+            }
+        }
+
+
+
+        render () {
+            return <WrappedComponent  ajax_data={this.state.ajax_data} {...this.props}/>
+        }
+
+    }
+
+
+
+
+    return WrapWithAjaxData
+}
+
+

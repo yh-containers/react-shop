@@ -133,6 +133,7 @@ a{
 #goods-detail {
   display: flex;
   flex-direction: column;
+  background: #e4e4e4;
 
 }
 #goods-detail .nav-block .am-navbar-title{
@@ -143,6 +144,11 @@ a{
   flex: 1;
   overflow: auto;
 }
+#goods-detail .info-block .goods-detail-Carousel{
+}
+#goods-detail .info-block .goods-detail-Carousel ul {
+  height: 200px!important;
+}
 #goods-detail .info-block .goods-info{
   display: flex;
   flex-direction: column;
@@ -151,15 +157,14 @@ a{
   border-bottom: 1px solid #dcdcdc;
 }
 #goods-detail .info-block .goods-info .name,#goods-detail .info-block .goods-info .intro{
-  font-size: 24px;
+  font-size: 18px;
   color: black;
-  font-weight: bold;
   word-wrap: break-word;
   line-height: 18px;
 }
 
 #goods-detail .info-block .goods-info .intro{
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 600;
   color: #e78f40;
 }
@@ -220,6 +225,32 @@ a{
 }
 #goods-detail .info-block .list-block .comment-list .am-list-line .am-list-content{
   padding-top: 0;
+}
+#goods-detail .info-block .list-block .spu{
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+#goods-detail .info-block .list-block .spu .item{
+  font-size: 12px;
+  margin-bottom: 2px;
+  display: flex;
+}
+#goods-detail .info-block .list-block .spu .item .tip{
+  flex: 2;
+}
+#goods-detail .info-block .list-block .spu .item .content{
+  flex: 8;
+}
+#goods-detail .info-block .list-block .spu .item-top{
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 7px;
+  border-top: 1px solid #cccccc;
+  padding-top: 5px;
+}
+#goods-detail .info-block .list-block .spu .item-top:first-child{
+  border-top: none;
 }
 
 #goods-detail #goods-foot{
@@ -494,6 +525,47 @@ a{
   color: #cccccc;
 }
 
+
+.kv-block{
+  display: flex;
+  flex-direction: column;
+  height: 250px;
+  background: #fcfcfc;
+  justify-content: space-between;
+}
+.kv-block .content{
+  flex: 1;
+  overflow: auto;
+}
+.kv-block .sure-btn{
+  background: #e78f40;
+  color: #fff;
+  font-size: 18px;
+}
+.kv-block .attr-item{
+  width: inherit;
+  display: flex;
+  align-items: center;
+  background: white;
+  border-bottom: 1px solid #ececfc;
+  margin-bottom: 3px;
+}
+.kv-block .attr-item .field-name{
+  flex: 3;
+  overflow: hidden;
+}
+.kv-block .attr-item .content{
+  flex: 7;
+  text-align: left;
+}
+.kv-block .attr-item .content a[role="button"]{
+  display: inline-block;
+  margin: 3px 3px 3px 0;
+}
+.kv-block .attr-item .content a[role="button"].active{
+  background: #e9741e;
+  color: #fff;
+}
 
 
 

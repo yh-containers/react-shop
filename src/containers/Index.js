@@ -6,9 +6,10 @@ import {connect} from 'react-redux'
 import IndexSlice from "./Index.slice";
 import GoodsList from "../components/GoodsList";
 
-import {axiosHandleRequest} from '../axios.service'
+
 
 import {initFlowImages,initHotGoods} from '../reducers/globalData'
+import WrapWithAjaxData from "../components/WrapWithAjaxData";
 
 class IndexContainer extends Component {
     static propTypes ={
@@ -17,28 +18,6 @@ class IndexContainer extends Component {
         initAdFlowImages:PropTypes.func,
         initHotGoods:PropTypes.func
     }
-
-    componentDidMount()
-    {
-        console.log(this.props)
-        this.props.flow_images.length>0 || this._loadGoodsList()
-        this.props.hot_goods.length>0 || this._loadImages()
-    }
-
-    //加载商品数据
-    _loadGoodsList() {
-        axiosHandleRequest('goods-list-data',{abc:1},(data)=>{
-            this.props.initHotGoods(data)
-        })
-    }
-
-    //加载商品数据
-    _loadImages() {
-        axiosHandleRequest('ad-flow-images',{type:1},(data)=>{
-            this.props.initAdFlowImages(data)
-        })
-    }
-
 
 
     render() {
@@ -102,7 +81,7 @@ class IndexContainer extends Component {
 const mapStateProps = (state)=>{
     return {
         flow_images:state.globalData.flow_images,
-        hot_goods:state.globalData.hot_goods
+        hot_goods:state.globalData.hot_goods,
     }
 }
 
@@ -118,6 +97,14 @@ const mapDispatchProps = (dispatch)=>{
         }
     }
 }
+
+IndexContainer = WrapWithAjaxData(IndexContainer, [
+    ['goods-list-data','initHotGoods',{},30],
+    ['ad-flow-images','initAdFlowImages',{type:1},30],
+])
+
+// IndexContainer = WrapWithAjaxData(IndexContainer, 'goods-list-data','initHotGoods',{},30)
+// IndexContainer = WrapWithAjaxData(IndexContainer, 'ad-flow-images','initAdFlowImages',{type:1},30)
 
 
 export default connect(mapStateProps,mapDispatchProps)(IndexContainer);

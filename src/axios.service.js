@@ -26,12 +26,14 @@ export const axiosInstance = axios.create({
     // 后面数组中的函数必须返回一个字符串，或 ArrayBuffer，或 Stream
     transformRequest: [function (data) {
         // 对 data 进行任意转换处理
+        Toast.loading()
         return data;
     }],
 
     // `transformResponse` 在传递给 then/catch 前，允许修改响应数据
     transformResponse: [function (data) {
         // 对 data 进行任意转换处理
+        Toast.hide()
         return data;
     }],
     // `data` 是作为请求主体被发送的数据
@@ -68,6 +70,7 @@ export const  axiosHandleRequest = (uri,req_data,handleData,is_handle_data=true)
     let CancelToken = axios.CancelToken;
     let source = CancelToken.source();
     let req_info = config_url[uri]
+    console.log(req_info)
     let method = req_info[1]
     let req_uri = req_info[0]
     let config={}
