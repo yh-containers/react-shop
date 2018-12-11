@@ -9,5 +9,8 @@ export default {
         'user-login'            : ['user/login','get'],
         'user-coll-goods'       : ['user/collGoods','post'],
         'user-goods-add-cart'   : ['user/goodsAddCart','post'],
+        'user-cart'             : ['user/cart','get'],
+        'user-cart-goods-change': ['user/cartGoodsChange','post'],
+        'user-cart-goods-del'   : ['user/cartGoodsDel','post'],
     }
 }

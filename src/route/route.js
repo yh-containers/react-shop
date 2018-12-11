@@ -20,10 +20,15 @@ export  const routes = [
         strict:true,
         component: GoodsDetailContainer
     },
+    {
+        path:'/order-preview/:goods-id-:attr-id',
+        exact:true,
+        strict:true,
+        component: GoodsDetailContainer
+    },
 
     {
         path:'/',
-        exact:true,
         component:RootContainer,
         routes:[
             {

@@ -456,6 +456,13 @@ a {
 .goods-slice .am-list-body .goods-block .info .view .am-stepper.showNumber {
     width: 100px;
 }
+.goods-slice .am-list-thumb {
+    position: relative;
+}
+.goods-slice .am-list-thumb .am-checkbox-inner{
+    top:0!important;
+    left: 0!important;
+}
 
 #cart-page .handle-block {
 

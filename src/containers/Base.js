@@ -17,7 +17,8 @@ class BaseContainer extends Component {
     //获取登录信息
     _loadUserLoginInfo(field=''){
         var loginInfo = localStorage.getItem('loginInfo')
-        loginInfo = JSON.parse(loginInfo)
+        loginInfo = loginInfo?JSON.parse(loginInfo):{}
+        console.log(loginInfo)
         if(field){
             if(loginInfo.hasOwnProperty(field)){
                 return loginInfo[field]

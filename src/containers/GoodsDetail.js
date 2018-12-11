@@ -1,7 +1,7 @@
 import React, {Component, Fragment} from 'react';
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-
+import {Link} from 'react-router-dom'
 import {Carousel,NavBar,Icon, Badge,List,Card,Modal,Button,Drawer} from "antd-mobile";
 import {CustomIcon} from "../assets/fonts/iconfont/CustomIcon";
 
@@ -301,7 +301,7 @@ class GoodsDetailContainer extends BaseContainer {
                         }
                         收藏
                     </div>
-                    <div className="item cart">
+                    <Link to="/cart" className="item cart">
                         {this.props.cart_num!==false ?
                                 <Badge
                                     text={this.props.cart_num}
@@ -311,7 +311,7 @@ class GoodsDetailContainer extends BaseContainer {
                         }
 
                         购物车
-                    </div>
+                    </Link>
                     <div className="item add-cart" onClick={this.handleAddCart.bind(this)}>
                         加入购物车
                     </div>
