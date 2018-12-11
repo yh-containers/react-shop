@@ -10,8 +10,9 @@ import GoodsList from "../components/GoodsList";
 
 import {initFlowImages,initHotGoods} from '../reducers/globalData'
 import WrapWithAjaxData from "../components/WrapWithAjaxData";
+import BaseContainer from "./Base";
 
-class IndexContainer extends Component {
+class IndexContainer extends BaseContainer {
     static propTypes ={
         flow_images:PropTypes.array,    //轮播图
         hot_goods:PropTypes.array,    //热门商品

@@ -2,6 +2,8 @@ import axios from "axios";
 import { Toast} from 'antd-mobile';
 
 import config from './axios.config'
+
+var qs = require('qs');
 //引入api接口文档
 const config_url = config.url
 
@@ -25,9 +27,19 @@ export const axiosInstance = axios.create({
     // 只能用在 'PUT', 'POST' 和 'PATCH' 这几个请求方法
     // 后面数组中的函数必须返回一个字符串，或 ArrayBuffer，或 Stream
     transformRequest: [function (data) {
-        // 对 data 进行任意转换处理
+
+        // console.log('transformRequest')
+        // console.log(data)
+        // // 对 data 进行任意转换处理
         Toast.loading()
-        return data;
+        //获取登录信息
+        var login_info=localStorage.getItem('loginInfo')
+        if(login_info){
+            login_info = JSON.parse(login_info)
+            data = Object.assign({},data,login_info)
+        }
+        // console.log(data)
+        return qs.stringify(data);
     }],
 
     // `transformResponse` 在传递给 then/catch 前，允许修改响应数据
@@ -48,16 +60,20 @@ export const axiosInstance = axios.create({
     // `paramsSerializer` 是一个负责 `params` 序列化的函数
     // (e.g. https://www.npmjs.com/package/qs, http://api.jquery.com/jquery.param/)
     paramsSerializer: function(params) {
-        switch (typeof params) {
-            case 'object':
-                var req_str = '';
-                for(let index in params) {
-                    req_str+=index+'='+params[index]+'&'
-                }
-                return req_str.slice(0,-1);
-            default:
-                return params
+
+        //获取登录信息
+        var login_info=localStorage.getItem('loginInfo')
+        if(login_info){
+            login_info = JSON.parse(login_info)
+            params = Object.assign({},params,login_info)
         }
+
+        var req_str = '';
+        for(let index in params) {
+            req_str+=index+'='+params[index]+'&'
+        }
+        return req_str.slice(0,-1);
+
 
     },
 
@@ -66,7 +82,7 @@ export const axiosInstance = axios.create({
 /*
 * 处理请求
 * */
-export const  axiosHandleRequest = (uri,req_data,handleData,is_handle_data=true)=>{
+export const  axiosHandleRequest = (uri,req_data,handleData,is_handle_data=true,is_show_msg=false,show_msg_time=1)=>{
     let CancelToken = axios.CancelToken;
     let source = CancelToken.source();
     let req_info = config_url[uri]
@@ -75,13 +91,22 @@ export const  axiosHandleRequest = (uri,req_data,handleData,is_handle_data=true)
     let req_uri = req_info[0]
     let config={}
     config['cancelToken'] = source.token
-    let req_key_name = method === 'get'?'params':'data'    //请求数据
-    config[req_key_name] = req_data
-    console.log(req_data)
+    var req_instance = null;
+    if(method==='get'){
+        config['params'] = req_data
+        req_instance = axiosInstance.get(req_uri,config)
+    }else{
+        req_instance = axiosInstance.post(req_uri,req_data,config)
+    }
+
+
     //发起请求
-    axiosInstance[method](req_uri,config)
+    req_instance
         .then(function(response){
             let data = response.data
+            //是否显示提示框
+            if(is_show_msg) Toast.show(data.msg,show_msg_time);
+            //是否处理数据
             data = is_handle_data?data.data:data
             handleData(data)
         })
@@ -91,7 +116,7 @@ export const  axiosHandleRequest = (uri,req_data,handleData,is_handle_data=true)
                 Toast.show('已取消网络请求');
             } else {
                 // 处理错误
-                console.log('请求异常:', error.message);
+                Toast.show('请求异常:', error.message);
             }
         })
 

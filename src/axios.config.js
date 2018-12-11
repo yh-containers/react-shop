@@ -6,5 +6,8 @@ export default {
         'ad-flow-images'        : ['ad/flowImages','get'],
         'goods-cate'            : ['goods/cate','get'],
         'goods-detail'          : ['goods/detail','get'],
+        'user-login'            : ['user/login','get'],
+        'user-coll-goods'       : ['user/collGoods','post'],
+        'user-goods-add-cart'   : ['user/goodsAddCart','post'],
     }
 }

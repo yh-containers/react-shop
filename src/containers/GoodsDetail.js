@@ -6,17 +6,19 @@ import {Carousel,NavBar,Icon, Badge,List,Card,Modal,Button,Drawer} from "antd-mo
 import {CustomIcon} from "../assets/fonts/iconfont/CustomIcon";
 
 import WrapWithAjaxData from "../components/WrapWithAjaxData";
-import {initGoodsData,chooseAttrItem} from '../reducers/goodsDetail'
+import {initGoodsData, chooseAttrItem, goodsColl, addCart} from '../reducers/goodsDetail'
+import BaseContainer from "./Base";
 
 
 
-class GoodsDetailContainer extends Component {
+class GoodsDetailContainer extends BaseContainer {
     static propTypes = {
-        ajax_data:PropTypes.any,
         detail_data:PropTypes.object,
         getReqParam:PropTypes.func,
         initGoodsData:PropTypes.func,
-        chooseAttrItem:PropTypes.func
+        chooseAttrItem:PropTypes.func,
+        goodsColl:PropTypes.func,
+        addCart:PropTypes.func,
 
     }
     constructor(props) {
@@ -31,17 +33,15 @@ class GoodsDetailContainer extends Component {
             attr_info:'',
             group_attr:[],
             attr_id:0,
-            ajax_data:props.ajax_data
+            id:0,
         };
     }
 
-    componentDidMount(){
 
-    }
 
     componentWillUpdate(nextProps,nextState){
         if(nextState.sku_item.length===0 && nextProps.detail_data.hasOwnProperty('id')){
-            var {sku=[],price_info=[]} = nextProps.detail_data
+            var {id=0,sku=[],price_info=[]} = nextProps.detail_data
             var sku_item=[]
             var current_attr=[],current_group_attr='',group_attr=[],attr_info=''
             //获取属性信息
@@ -60,6 +60,7 @@ class GoodsDetailContainer extends Component {
 
 
             this.setState({
+                id:id,
                 sku_item:sku_item,
                 group_attr:group_attr,
                 attr_info:attr_info,
@@ -117,22 +118,30 @@ class GoodsDetailContainer extends Component {
     handleSpuList() {
         var current_spu_arrow = this.state.spu_list_arrow
         this.setState({
-            spuOpen:current_spu_arrow==='up'?true:false,
+            spuOpen:current_spu_arrow==='up',
             spu_list_arrow:current_spu_arrow==='up'?'down':'up'
         })
     }
 
+    //商品收藏
+    handleGoodsColl() {
+        this.sendAjax('user-coll-goods',{goods_id:this.state.id},(data)=>{
+            this.props.goodsColl(!!data)
+        })
+    }
 
+    //加入购物车
+    handleAddCart() {
+        this.sendAjax('user-goods-add-cart',{goods_id:this.state.id,attr_id:this.state.attr_id},(data)=>{
+            this.props.addCart(data)
+        })
+    }
     render() {
         let {
-            id=0,
             imgs=[],
             name='',
             subtitle='',
-            price=999.99,
             view=999,
-            stock=999,
-            sku=[],
             spu=[]
         }
             = this.props.detail_data
@@ -285,19 +294,25 @@ class GoodsDetailContainer extends Component {
 
                 </div>
                 <div id="goods-foot">
-                    <div className="item coll">
-                        <CustomIcon type={require('../assets/fonts/iconfont/star.svg')}/>
+                    <div className="item coll" onClick={this.handleGoodsColl.bind(this)}>
+                        {this.props.is_coll
+                            ?<CustomIcon type={require('../assets/fonts/iconfont/heart-fill.svg')} color="#FF0000"/>
+                            :<CustomIcon type={require('../assets/fonts/iconfont/heart.svg')}  color="#FF0000"/>
+                        }
                         收藏
                     </div>
                     <div className="item cart">
-                        <Badge
-                            text={99}
-                        >
-                            <CustomIcon type={require('../assets/fonts/iconfont/cart.svg')}/>
-                        </Badge>
+                        {this.props.cart_num!==false ?
+                                <Badge
+                                    text={this.props.cart_num}
+                                    >
+                                    <CustomIcon type={require('../assets/fonts/iconfont/cart.svg')}/>
+                                </Badge>:''
+                        }
+
                         购物车
                     </div>
-                    <div className="item add-cart">
+                    <div className="item add-cart" onClick={this.handleAddCart.bind(this)}>
                         加入购物车
                     </div>
                     <div className="item buy">
@@ -361,7 +376,8 @@ function closest(el, selector) {
 const mapStateProps = (state)=>{
     return {
         detail_data:state.goodsDetail.detail_data,
-        sku_item: state.goodsDetail.sku_item
+        is_coll:state.goodsDetail.is_coll,
+        cart_num:state.goodsDetail.cart_num
     }
 }
 const mapDispatchProps = (dispatch)=>{
@@ -371,6 +387,12 @@ const mapDispatchProps = (dispatch)=>{
         },
         chooseAttrItem:(index,value)=>{
             dispatch(chooseAttrItem(index,value))
+        },
+        goodsColl:(is_coll)=>{
+            dispatch(goodsColl(is_coll))
+        },
+        addCart:(card_num)=>{
+            dispatch(addCart(card_num))
         }
     }
 }

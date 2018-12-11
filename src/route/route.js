@@ -4,9 +4,16 @@ import CateContainer from "../containers/Cate";
 import MineContainer from "../containers/Mine";
 import RootContainer from "../containers/Root";
 import GoodsDetailContainer from "../containers/GoodsDetail";
+import LoginContainer from "../containers/Login";
 
 export  const routes = [
 
+    {
+        path:'/login',
+        exact:true,
+        strict:true,
+        component: LoginContainer
+    },
     {
         path:'/goods-detail/:id',
         exact:true,
@@ -16,6 +23,7 @@ export  const routes = [
 
     {
         path:'/',
+        exact:true,
         component:RootContainer,
         routes:[
             {

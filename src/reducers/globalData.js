@@ -1,4 +1,6 @@
 //action
+// const GET_USER_LOGIN_INFO = 'GET_USER_LOGIN_INFO'   //用户登录信息
+
 const INIT_FLOW_IMAGES = 'INIT_FLOW_IMAGES'   //轮播图
 const INIT_CATE_DATA = 'INIT_CATE_DATA'         //初始化分类数据
 const INIT_CATE_ADD_DATA = 'INIT_CATE_ADD_DATA'         //按分类保存数据
@@ -9,6 +11,7 @@ const ADD_CACHE_DATA_TTL = 'ADD_CACHE_DATA_TTL'         //缓存网络请求数�
 export default (state,action)=>{
     if(!state) {
         state = {
+            login_user_info:{},
             flow_images:[],
             cate_data:[],
             hot_goods:[],
@@ -17,6 +20,8 @@ export default (state,action)=>{
     }
 
     switch (action.type) {
+        // case GET_USER_LOGIN_INFO:
+        //     return {...state,login_user_info: action.user_info}
         case INIT_FLOW_IMAGES:
             return {...state,flow_images: action.flow_images}
 
@@ -44,6 +49,11 @@ export default (state,action)=>{
     }
 }
 //action creators
+//初始化用户登录信息
+// export const getUserLoginInfo = (user_info={})=>{
+//     return {type:GET_USER_LOGIN_INFO,user_info}
+// }
+
 //轮播图
 export const initFlowImages = (flow_images)=>{
     return {type:INIT_FLOW_IMAGES,flow_images}
