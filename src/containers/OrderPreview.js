@@ -6,71 +6,88 @@ import BaseContainer from "./Base";
 
 import { NavBar, Icon,List,Card,InputItem,Button } from 'antd-mobile';
 import  '../assets/css/OrderPreview.css'
-import {initData} from "../reducers/orderPreview";
+import {initData,destroyData,addRemark} from "../reducers/orderPreview";
+import {initData as addressInitData} from "../reducers/address";
+import AddressChoose from "../components/AddressChoose";
 
 class OrderPreviewContainer extends BaseContainer {
     static propTypes = {
         initData:PropTypes.func,
+        addressInitData:PropTypes.func,
+        addRemark:PropTypes.func,
     }
 
     componentWillMount(){
         var {match} = this.props
-        var {info=''} = match.params
+
+        var {info='',addr=''} = match.params
         var req_obj = {}
-        if(info){
+        if(info){//商品信息
             req_obj['num']=1
-            req_obj['info'] = info
+            let start = info.indexOf(this.DIRECTORY_SEPARATOR)+1
+            req_obj['info'] = info.substring(start)
         }
+
+        if(addr){ //收货地址
+            let start = addr.indexOf(this.DIRECTORY_SEPARATOR)+1
+            req_obj['addr_id'] = addr.substring(start)
+        }
+
         //获取商品数据
         this.sendAjax('order-preview',req_obj,(data)=>{
-            console.log(this.props)
-
             this.props.initData(data)
         })
         //获取地址信息
     }
 
-    //获取地址信息
-    getAddr(addr_id=0) {
-        if(this.login_user_id){
-            if(addr_id){
-                return (
-                    <List.Item
-                        className="address"
-                        arrow="horizontal"
-                        multipleLine
-                        onClick={() => {}}
-                    >
-                        <span>用户名</span>
-                        <span>18702783614</span>
-                        <List.Item.Brief>广东省深圳市南山区  63xxxxx</List.Item.Brief>
-                    </List.Item>
-                )
-            }else{
-                return (
-                    <List.Item
-                        className="address"
-                        arrow="horizontal"
-                        multipleLine
-                        onClick={() => {}}
-                    >
-                        请添加收货地址
-                    </List.Item>
-                )
-            }
 
-        }else{
-            return (
-                <List.Item
-                    className="address"
-                    onClick={()=>this.props.history.push('/login')}
-                >
-                    请先登录
-                </List.Item>
-            )
-        }
-
+    //组件销毁清空数据
+    componentWillUnmount(){
+        this.props.destroyData()
     }
+
+    handleAddrRedirect(path){
+        var {url} = this.props.match
+        var cache_url = url.replace(/\/address\/[0-9]+/,'')
+        localStorage.setItem('addr_redirect_info',cache_url);
+        this.props.history.push(path)
+    }
+    //添加订单备注
+    handleMchRemark(index,value){
+        this.props.addRemark(index,value)
+    }
+
+    //生成订单
+    handleCreateOrder(){
+        var order={},invoice=this.props.invoice
+        order['addr_id'] = this.props.addr_info.id
+        order['invoice_type'] = this.props.invoice_type
+        order['invoice'] = {}
+        order['goods_info'] = []
+        //商品数据
+
+        this.props.data.map(function(value,index){
+            var {mch_id=0,remark='',list=[]} = value
+            var sku_info = []
+            list.map(function(goods_value,goods_index){
+                var {id,attr_id,number} = goods_value
+                sku_info.push({gid:id,attr_id:attr_id,num:number})
+            })
+            order['goods_info'].push({mch_id:mch_id,remark:remark,sku_info:sku_info})
+        })
+        //发票数据
+        invoice.map(function(invoice_value,index){
+            var {info=[]} = invoice_value
+            info.map(function(info_value,info_index){
+                var {field='',value=''} = info_value
+                order['invoice'][field] = value
+            })
+        })
+        this.sendAjax('order-generator',order,(data)=>{
+            this.props.history.push('/pay/'+data)
+        })
+    }
+
 
     render() {
 
@@ -84,14 +101,16 @@ class OrderPreviewContainer extends BaseContainer {
 
                 >确认订单</NavBar>
                 <div className="content">
-                    <List>
-                        {/*获取收货地址*/}
-                        {this.getAddr()}
-                    </List>
+                    <AddressChoose
+                        {...this.props.addr_info}
+                        is_login={!!this.login_user_id}
+                        onHandleRedirect = {this.handleAddrRedirect.bind(this)}
+                    />
 
 
                     {this.props.data.map(function(value,index){
                         var {merchant_info={},list=[]} = value
+                        var {mch_id=0,name='',remark=''}=merchant_info
                         return (
                             <Card
                                 key={"merchant-info"+index}
@@ -99,7 +118,7 @@ class OrderPreviewContainer extends BaseContainer {
                                 full={true}
                             >
                                 <Card.Header
-                                    title={merchant_info.name}
+                                    title={name}
                                 />
                                 <Card.Body>
                                     <div className="order-goods">
@@ -132,6 +151,10 @@ class OrderPreviewContainer extends BaseContainer {
                                 <Card.Footer content={
                                     <List>
                                         <InputItem
+                                            valur={remark}
+                                            onChange={(value)=>{
+                                                this.handleMchRemark(index,value)
+                                            }}
                                             placeholder="订单备注:xxx"
                                         >买家留言</InputItem>
                                     </List>
@@ -147,7 +170,7 @@ class OrderPreviewContainer extends BaseContainer {
                             arrow="horizontal"
                         >优惠券</List.Item>
                         <List.Item
-                            extra="个人/明细"
+                            extra={this.props.invoice.length>0 && this.props.invoice[this.props.invoice_type].name}
                             arrow="horizontal"
                         >发票信息</List.Item>
                     </List>
@@ -171,7 +194,7 @@ class OrderPreviewContainer extends BaseContainer {
                     <div className="price">
                         <span>￥<em>{this.props.pay_money}</em></span>
                     </div>
-                    <Button type="warning">提交订单</Button>
+                    <Button type="warning" onClick={this.handleCreateOrder.bind(this)}>提交订单</Button>
                 </div>
             </div>
         );
@@ -181,7 +204,9 @@ class OrderPreviewContainer extends BaseContainer {
 const mapStateProps = (state)=>{
     return {
         data:state.orderPreview.data,
-        addr:state.orderPreview.addr,
+        addr_info:state.orderPreview.addr_info,
+        invoice_type:state.orderPreview.invoice_type,
+        invoice:state.orderPreview.invoice,
         total_money:state.orderPreview.total_money,
         pay_money:state.orderPreview.pay_money,
         dis_money:state.orderPreview.dis_money,
@@ -192,10 +217,19 @@ const mapStateProps = (state)=>{
 const mapDispatchProps = (dispatch)=>{
     return {
         initData:(data)=>{
-            console.log('order-preview-initdata')
             dispatch(initData(data))
+        },
+        destroyData:()=>{
+            dispatch(destroyData())
+        },
+        addressInitData:(data)=>{
+            dispatch(addressInitData(data))
+        },
+        addRemark:(index,remark)=>{
+            dispatch(addRemark(index,remark))
         }
     }
 }
+
 
 export default connect(mapStateProps,mapDispatchProps)(OrderPreviewContainer);

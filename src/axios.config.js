@@ -18,5 +18,8 @@ export default {
         'user-address-info'     : ['user/addressInfo','get'],
         'user-address-del'      : ['user/addressDel','post'],
         'user-cart-choose'      : ['user/cartChoose','post'],
+        'order-generator'       : ['order/generatorOrder','post'],
+        'order-pay'             : ['order/pay','get'],
+        'order-pay-sign'        : ['order/paySign','get'],
     }
 }

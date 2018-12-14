@@ -7,6 +7,7 @@ import {axiosHandleRequest} from "../axios.service";
 class BaseContainer extends Component {
     login_user_id = 0
     login_token = ''
+    DIRECTORY_SEPARATOR = '/'
 
     constructor(props){
         super(props)
@@ -30,9 +31,11 @@ class BaseContainer extends Component {
     }
 
     //返回动作
-    historyAction() {
+    historyAction(replace='') {
         console.log(this.props)
-        if(this.props.history.length>2){
+        if(replace){
+            this.props.history.replace(replace)
+        } else if(this.props.history.length>2){
             this.props.history.goBack()
         }else{
             this.props.history.replace('/')

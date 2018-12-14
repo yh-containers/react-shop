@@ -10,15 +10,37 @@ import WrapWithAjaxData from "../components/WrapWithAjaxData";
 import {initData,delAddress} from "../reducers/address";
 import {CustomIcon} from "../assets/fonts/iconfont/CustomIcon";
 
+const ADD_REDIRECT_INFO = 'addr_redirect_info'
 class AddressContainer extends BaseContainer {
     static propTypes = {
         initData:PropTypes.func,
         delAddress:PropTypes.func,
+
+    }
+
+    constructor(){
+        super()
+        //获取跳转信息
+        var redirect_info  = localStorage.getItem(ADD_REDIRECT_INFO)
+        this.state= {
+            redirect_info:redirect_info?redirect_info:''
+        }
+    }
+
+    componentWillUnmount(){
+        localStorage.removeItem(ADD_REDIRECT_INFO)
     }
 
     handleDel(id,index){
         this.props.delAddress(index)
         this.sendAjax('user-address-del',{id:id})
+    }
+    handleRedirect(id){
+        if(this.state.redirect_info){
+            this.historyAction(this.state.redirect_info+'/address/'+id)
+        }else{
+            console.log('...handleRedirect')
+        }
     }
     render() {
         return (
@@ -43,7 +65,7 @@ class AddressContainer extends BaseContainer {
                         var {id,rec_name='',rec_phone='',province='',city='',area='',addr='',is_default=0} = value
                         return (
                             <div key={'address'+index} className="address-item">
-                                <div className="address-info">
+                                <div className="address-info" onClick={this.handleRedirect.bind(this,id)}>
                                     <div className="info">
                                         <span>{rec_name}</span>
                                         <span>{rec_phone}</span>

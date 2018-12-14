@@ -8,6 +8,7 @@ import LoginContainer from "../containers/Login";
 import OrderPreviewContainer from "../containers/OrderPreview";
 import AddressContainer from "../containers/Address";
 import AddressOptContainer from "../containers/AddressOpt";
+import PayContainer from "../containers/Pay";
 
 export  const routes = [
 
@@ -24,10 +25,16 @@ export  const routes = [
         component: GoodsDetailContainer
     },
     {
-        path:'/order-preview/:info(\\d+-\\d+)?',    //路由匹配 goods_id-attr_id
+        path:'/order-preview/:info(goods_info/\\d+-\\d+)?/:addr(address/\\d+)?',    //路由匹配 goods_id-attr_id
         exact:true,
         strict:true,
         component: OrderPreviewContainer
+    },
+    {
+        path:'/pay/:order_id(\\d+[_\\d+]?)?',
+        exact:true,
+        strict:true,
+        component: PayContainer
     },
 
     {

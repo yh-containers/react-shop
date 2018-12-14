@@ -86,6 +86,7 @@ class AddressOptContainer extends BaseContainer {
             data = {...data,province,city,area,id:this.state.id}
             this.sendAjax('user-address-opt',data,(data)=>{
                 this.props.ignoreCacheDataTTL()
+                this.historyAction('/address')
             })
         });
 
