@@ -18,7 +18,6 @@ class BaseContainer extends Component {
     _loadUserLoginInfo(field=''){
         var loginInfo = localStorage.getItem('loginInfo')
         loginInfo = loginInfo?JSON.parse(loginInfo):{}
-        console.log(loginInfo)
         if(field){
             if(loginInfo.hasOwnProperty(field)){
                 return loginInfo[field]
@@ -28,6 +27,17 @@ class BaseContainer extends Component {
         }else {
             return loginInfo
         }
+    }
+
+    //返回动作
+    historyAction() {
+        console.log(this.props)
+        if(this.props.history.length>2){
+            this.props.history.goBack()
+        }else{
+            this.props.history.replace('/')
+        }
+
     }
 
     //发送网络请求

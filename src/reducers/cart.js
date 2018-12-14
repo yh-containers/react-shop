@@ -1,17 +1,26 @@
 //action
-const INIT_DATA = 'INIT_DATA'
-const OPT_CHECKBOX = 'OPT_CHECKBOX'
-const FULL_CHECKBOX = 'FULL_CHECKBOX'
-const OPT_GOODS_INFO = 'OPT_GOODS_INFO'
-const OPT_GOODS_NUM = 'OPT_GOODS_NUM'
-const DEL_CART      = 'DEL_CART'
+const INIT_DATA = 'cart/INIT_DATA'
+const OPT_CHECKBOX = 'cart/OPT_CHECKBOX'
+const FULL_CHECKBOX = 'cart/FULL_CHECKBOX'
+const OPT_GOODS_INFO = 'cart/OPT_GOODS_INFO'
+const OPT_GOODS_NUM = 'cart/OPT_GOODS_NUM'
+const DEL_CART      = 'cart/DEL_CART'
+const HAVE_CHOOSE_INFO      = 'cart/HAVE_CHOOSE_INFO'
 
 export default (state,action={})=>{
     if(!state){
-        state={data:[],is_full:false,total_num:0,total_price:0.00}
+        state={
+            data:[],
+            is_full:false,
+            total_num:0,
+            total_price:0.00,
+            have_choose_info:false,//是否有选中的选项
+        }
     }
     switch (action.type) {
         case INIT_DATA:
+            console.log('cart-init-data-abc')
+            console.log(action.data)
             return {...state,data:action.data}
 
         case OPT_GOODS_INFO:
@@ -19,7 +28,7 @@ export default (state,action={})=>{
             var total_num=0,total_price=0.00
 
             data.map(function(value,index){
-                var {list} = value
+                var {list=[]} = value
                 list.map(function(goods_data,goods_index){
                     var {is_choose,num,price} = goods_data
                     if(is_choose){
@@ -71,7 +80,23 @@ export default (state,action={})=>{
             })
 
             return {...state,data:new_data}
+        case HAVE_CHOOSE_INFO:
+            var data = state.data
+            var have_choose_info = false
+            data = data?data:[]
+            for (let i=0;i<data.length;i++){
+                var list = data[i].list?data[i].list:[]
+                for(let j=0;j<list.length;j++){
+                    var {is_choose} = list[i]
+                    if(is_choose){
+                        have_choose_info=true
+                        break
+                    }
+                }
+                if(have_choose_info) break;
+            }
 
+            return {...state,have_choose_info:have_choose_info}
         default:
             return state
     }
@@ -79,7 +104,8 @@ export default (state,action={})=>{
 
 //action creators
 
-export const initData=(data)=>{
+export const initData=(data=[])=>{
+    console.log('cart-init-data')
     return {type:INIT_DATA,data}
 }
 //复选框操作
@@ -101,4 +127,8 @@ export const optGoodsNum=(index,goods_index,num)=>{
 //删除购物车
 export const delCart=(del_cart=[])=>{
     return {type:DEL_CART,del_cart}
+}
+//检测是否可提交到订单
+export const checkSubmitInfo=()=>{
+    return {type:HAVE_CHOOSE_INFO}
 }

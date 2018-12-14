@@ -1,5 +1,5 @@
 //actions
-const ADD_GOODS_LIST = 'ADD_GOODS_LIST'
+const ADD_GOODS_LIST = 'cateGoods/ADD_GOODS_LIST'
 
 // reducer
 export default function (state, action) {

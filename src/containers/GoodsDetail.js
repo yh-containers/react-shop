@@ -155,7 +155,7 @@ class GoodsDetailContainer extends BaseContainer {
                     className="nav-block"
                     mode="light"
                     icon={<Icon type="left" />}
-                    onLeftClick={() => console.log('onLeftClick')}
+                    onLeftClick={() => this.historyAction()}
                     rightContent={[
                         <Icon key={'header'+0}  type="ellipsis" />,
                     ]}
@@ -315,9 +315,9 @@ class GoodsDetailContainer extends BaseContainer {
                     <div className="item add-cart" onClick={this.handleAddCart.bind(this)}>
                         加入购物车
                     </div>
-                    <div className="item buy">
+                    <Link to={'/order-preview/'+this.state.id+'-'+this.state.attr_id} className="item buy">
                         立即购买
-                    </div>
+                    </Link>
                 </div>
             </div>
                     <Modal

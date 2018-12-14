@@ -1,11 +1,11 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
-import { NavBar,Checkbox,List,Stepper,Button} from "antd-mobile";
+import { NavBar,Checkbox,List,Stepper,Toast} from "antd-mobile";
 import {Link} from "react-router-dom";
 import BaseContainer from "./Base";
 
-import  {initData,optCheckBox,fullCheckBox,optGoodsInfo, optGoodsNum,delCart} from '../reducers/cart'
+import  {initData,optCheckBox,fullCheckBox,optGoodsInfo, optGoodsNum,delCart,checkSubmitInfo} from '../reducers/cart'
 import WrapWithAjaxData from "../components/WrapWithAjaxData";
 import CartBalance from "../components/CartBalance";
 import CartEdit from "../components/CartEdit";
@@ -39,20 +39,25 @@ class CartContainer extends BaseContainer {
         })
     }
 
-    //初始化商品数据
-    initData(data){
-        this.props.initData(data)
-    }
+
     //复选框选择
-    optCheckBox(index,goods_index,bool)
+    optCheckBox(cart_id,index,goods_index,bool)
     {
         this.props.optCheckBox(index,goods_index,!bool)
+        //请求服务器动作
+        this.sendAjax('user-cart-choose',{id:cart_id,state:bool?2:1},(data)=>{
+
+        },true,false)
     }
 
     //全选
     fullCheckBox(bool)
     {
         this.props.fullCheckBox(!bool)
+        //请求服务器动作
+        this.sendAjax('user-cart-choose',{state:bool?2:1},(data)=>{
+
+        },true,false)
     }
 
     //商品数量调整
@@ -99,8 +104,15 @@ class CartContainer extends BaseContainer {
         this.sendAjax('user-coll-goods',{goods_id:coll_goods,type:1},(data)=>{
 
         },true,false)
-
     }
+    handleRedirect(){
+        if(this.props.have_choose_info){
+            this.props.history.push('/order-preview')
+        }else{
+            Toast.show('请选择需要购买的商品')
+        }
+    }
+
     render() {
 
         return (
@@ -137,7 +149,7 @@ class CartContainer extends BaseContainer {
                                             key={'cart-goods'+goods_index}
                                             className="overlay-checkbox"
                                             checked={is_choose}
-                                            onChange={this.optCheckBox.bind(this,index,goods_index,is_choose)}
+                                            onChange={this.optCheckBox.bind(this,cart_id,index,goods_index,is_choose)}
                                         >
                                             <div className="goods-block">
 
@@ -190,6 +202,7 @@ class CartContainer extends BaseContainer {
                         <CartBalance
                             total_num = {this.props.total_num}
                             total_price = {this.props.total_price}
+                            onHandleRedirect = {this.handleRedirect.bind(this)}
                         />:
                         <CartEdit
                             onHandleGoodsDel={this.handleCartDel.bind(this)}
@@ -208,6 +221,7 @@ const mapStateProps = (state)=>{
         is_full:state.cart.is_full,
         total_num:state.cart.total_num,
         total_price:state.cart.total_price,
+        have_choose_info:state.cart.have_choose_info,
     }
 }
 
@@ -216,14 +230,17 @@ const mapDispatchProps = (dispatch)=>{
         initData:(data)=>{
             dispatch(initData(data))
             dispatch(optGoodsInfo())
+            dispatch(checkSubmitInfo())
         },
         optCheckBox:(index,goods_index,bool)=>{
             dispatch(optCheckBox(index,goods_index,bool))
             dispatch(optGoodsInfo())
+            dispatch(checkSubmitInfo())
         },
         fullCheckBox:(bool)=>{
             dispatch(fullCheckBox(bool))
             dispatch(optGoodsInfo())
+            dispatch(checkSubmitInfo())
         },
         optGoodsNum:(index,goods_index,num)=>{
             dispatch(optGoodsNum(index,goods_index,num))
@@ -232,6 +249,7 @@ const mapDispatchProps = (dispatch)=>{
         delCart:(del_cart)=>{
             dispatch(delCart(del_cart))
             dispatch(optGoodsInfo())
+            dispatch(checkSubmitInfo())
         }
     }
 }

@@ -1,0 +1,175 @@
+#order-preview{
+    background: #ececec;
+    display: flex;
+    flex-direction: column;
+}
+.address{
+
+}
+#order-preview .content{
+    flex: 1;
+    margin-bottom: 6px;
+}
+#order-preview .footer{
+    background: #fff;
+    height: 44px;
+    display: flex;
+}
+#order-preview .footer .price{
+    margin-left: 6px;
+    flex: 6;
+    display: flex;
+    align-items: flex-end;
+    color: #ff4444;
+    font-size: 24px;
+}
+#order-preview .footer .price em{
+
+    font-size: 32px;
+}
+#order-preview .footer .am-button{
+    flex: 4;
+}
+.address .am-list-line{
+    padding: 3px 15px 6px 0;
+}
+.address .am-list-line .am-list-content{
+
+}
+.address .am-list-line .am-list-content>span{
+    font-size: 15px;
+    font-weight: 600;
+    margin-right: 8px;
+}
+.address .am-list-line .am-list-content .am-list-brief{
+    font-size: 13px;
+    margin-top: 0;
+}
+
+.order-merchant{
+    margin-top: 8px;
+}
+.order-merchant .am-card-header{
+    padding: 6px 15px;
+}
+.order-merchant .am-card-header .am-card-header-content{
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.order-merchant .am-card-body{
+
+}
+.order-merchant .am-card-body .order-goods{
+
+}
+.order-merchant .am-card-body .order-goods .item{
+    display: flex;
+    border-bottom: 1px solid #ececec;
+    padding-top: 3px;
+}
+.order-merchant .am-card-body .order-goods .item:last-child{
+    border-bottom: none;
+}
+
+.order-merchant .am-card-body .order-goods .item>a{
+
+}
+
+.order-merchant .am-card-body .order-goods .item a img{
+    width: 80px;
+    height: 80px;
+    padding: 3px;
+}
+
+.order-merchant .am-card-body .order-goods .item .info{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden;
+
+}
+.order-merchant .am-card-body .order-goods .item .info .name{
+
+    font-size: 16px;
+    font-weight: 600;
+    max-height: 36px;
+    word-wrap: break-word;
+    overflow: hidden;
+}
+.order-merchant .am-card-body .order-goods .item .info .attr{
+    font-size: 14px;
+    color: #acacac;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+.order-merchant .am-card-body .order-goods .item .info .price{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #ff4444;
+    font-weight: 600;
+}
+
+.order-merchant .am-card-footer-content{
+
+}
+.order-merchant .am-card-footer-content .am-list{
+
+}
+.order-merchant .am-card-footer-content .am-list .am-list-body{
+
+}
+.order-merchant .am-card-footer-content .am-list .am-list-body .am-list-item{
+    min-height: 20px;
+    height: 0;
+    padding: 3px 0;
+    font-size: 16px;
+}
+.order-merchant .am-card-footer-content .am-list .am-list-body .am-list-item .am-input-label{
+    font-size: 14px;
+    text-align: center;
+}
+
+.order-merchant .am-card-footer-content .am-list .am-list-body .am-list-item .am-input-control input{
+    font-size: 12px;
+}
+.content .choose-item {
+    margin-top: 6px;
+}
+.content .choose-item .am-list-body .am-list-item{
+    min-height: 20px;
+}
+.content .choose-item .am-list-body .am-list-item .am-list-line{
+
+}
+.content .choose-item .am-list-body .am-list-item .am-list-line .am-list-content{
+    font-size: 14px;
+}
+.content .choose-item .am-list-body .am-list-item .am-list-line .am-list-extra{
+    font-size: 14px;
+}
+
+.content .result-block{
+    margin-top: 6px;
+    width: 100%;
+    background: #fff;
+}
+.content .result-block .item{
+    display: flex;
+    justify-content: space-between;
+    height: 30px;
+    align-items: center;
+    font-size: 14px;
+    padding: 0 15px;
+}
+.content .result-block .item .field{
+
+}
+.content .result-block .item .result{
+    font-weight: 500;
+}
+.content .result-block .item .result.red{
+    color: #ff4444;
+}

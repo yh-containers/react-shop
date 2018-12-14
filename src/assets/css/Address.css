@@ -1,0 +1,47 @@
+#address{
+    background: #ececec;
+    display: flex;
+    flex-direction: column;
+}
+.page-content{
+    flex: 1;
+    overflow: auto;
+}
+
+.page-content .address-item{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #ffffff;
+    padding: 10px 3px;
+    border-bottom: 1px solid #dcdcdc;
+}
+
+
+.page-content .address-item .am-checkbox-wrapper{
+    width: 40px;
+    text-align: center;
+}
+.page-content .address-item .address-info{
+    flex: 1;
+}
+.page-content .address-item .edit{
+    width: 40px;
+    text-align: center;
+}
+
+.page-content .address-item .address-info .info{
+    font-size: 15px;
+    font-weight: 600;
+}
+.page-content .address-item .address-info .info span:first-child{
+    width: 80px;
+    display: inline-block;
+}
+
+.page-content .address-item .address-info .address{
+    margin-top: 3px;
+    font-size: 13px;
+    color: #8c8c8c;
+}
+

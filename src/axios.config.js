@@ -12,5 +12,11 @@ export default {
         'user-cart'             : ['user/cart','get'],
         'user-cart-goods-change': ['user/cartGoodsChange','post'],
         'user-cart-goods-del'   : ['user/cartGoodsDel','post'],
+        'order-preview'         : ['order/orderPreview','get'],
+        'user-address-opt'      : ['user/addressOpt','post'],
+        'user-address'          : ['user/address','get'],
+        'user-address-info'     : ['user/addressInfo','get'],
+        'user-address-del'      : ['user/addressDel','post'],
+        'user-cart-choose'      : ['user/cartChoose','post'],
     }
 }

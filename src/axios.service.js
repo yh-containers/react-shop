@@ -108,7 +108,7 @@ export const  axiosHandleRequest = (uri,req_data,handleData,is_handle_data=true,
             if(is_show_msg) Toast.show(data.msg,show_msg_time);
             //是否处理数据
             data = is_handle_data?data.data:data
-            handleData(data)
+            handleData && handleData(data)
         })
         .catch(function(error){
             if (axios.isCancel(error)) {

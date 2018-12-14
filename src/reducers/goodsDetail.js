@@ -1,8 +1,8 @@
 //actions
-const INIT_GOODS_DATA = 'INIT_GOODS_DATA'
-const CHOOSE_ATTR_ITEM = 'CHOOSE_ATTR_ITEM'
-const GOODS_COLL = 'GOODS_COLL'
-const Add_Cart = 'Add_Cart'
+const INIT_GOODS_DATA = 'goodsDetail/INIT_GOODS_DATA'
+const CHOOSE_ATTR_ITEM = 'goodsDetail/CHOOSE_ATTR_ITEM'
+const GOODS_COLL = 'goodsDetail/GOODS_COLL'
+const Add_Cart = 'goodsDetail/Add_Cart'
 // reducer
 export default function (state, action) {
     if (!state) {

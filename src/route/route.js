@@ -5,6 +5,9 @@ import MineContainer from "../containers/Mine";
 import RootContainer from "../containers/Root";
 import GoodsDetailContainer from "../containers/GoodsDetail";
 import LoginContainer from "../containers/Login";
+import OrderPreviewContainer from "../containers/OrderPreview";
+import AddressContainer from "../containers/Address";
+import AddressOptContainer from "../containers/AddressOpt";
 
 export  const routes = [
 
@@ -21,12 +24,24 @@ export  const routes = [
         component: GoodsDetailContainer
     },
     {
-        path:'/order-preview/:goods-id-:attr-id',
+        path:'/order-preview/:info(\\d+-\\d+)?',    //路由匹配 goods_id-attr_id
         exact:true,
         strict:true,
-        component: GoodsDetailContainer
+        component: OrderPreviewContainer
     },
 
+    {
+        path:'/address',
+        exact:true,
+        strict:true,
+        component: AddressContainer
+    },
+    {
+        path:'/address-opt/:id(\\d+)?',
+        exact:true,
+        strict:true,
+        component: AddressOptContainer
+    },
     {
         path:'/',
         component:RootContainer,
@@ -49,7 +64,7 @@ export  const routes = [
             {
                 path:'/Mine',
                 exact:true,
-                component: MineContainer
+                component: MineContainer,
             },
         ]
     },

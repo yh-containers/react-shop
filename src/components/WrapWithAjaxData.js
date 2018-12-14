@@ -16,6 +16,7 @@ export default (WrappedComponent,req_info=[])=>{
         }
 
         componentDidMount(){
+            console.log('componentDidMount')
             let current_time = (new Date()).getTime()
             let is_req = true;
             for(let i=0;i<req_info.length;i++) {
@@ -36,7 +37,6 @@ export default (WrappedComponent,req_info=[])=>{
                         this.props.addCacheDataTTL(cache_name,ttl)
                     }
                 }
-
                 is_req && axiosHandleRequest(uri,req_data,(data)=>{
                     this.props[handle_func](data)
                 })

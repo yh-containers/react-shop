@@ -1,0 +1,18 @@
+#address-opt .am-button{
+    margin-top: 10px;
+}
+
+#address-opt .am-list{
+
+}
+#address-opt .am-list .am-list-item{
+    min-height: 25px;
+    height: 35px;
+}
+.am-list-item .am-input-label,
+.am-list-item .am-list-line .am-list-content,
+.am-list-item .am-list-line .am-list-extra,
+.am-list-item .am-input-control,
+.am-list-item .am-input-control input{
+    font-size: 14px;
+}

@@ -2,8 +2,16 @@ import React, {Component} from 'react';
 import {Link} from 'react-router-dom'
 import { List,Badge,Flex  } from 'antd-mobile';
 import {CustomIcon} from "../assets/fonts/iconfont/CustomIcon";
+import BaseContainer from "./Base";
 
-class MineContainer extends Component {
+class MineContainer extends BaseContainer {
+
+    componentWillMount(){
+        if(!this.login_user_id){
+            this.props.history.replace('/login')
+        }
+    }
+
     render() {
         return (
             <div id="mine-page">
@@ -103,6 +111,10 @@ class MineContainer extends Component {
                 <div className="list-block">
                     <List>
                     <List.Item arrow="horizontal">帮助中心</List.Item>
+                    <List.Item
+                        arrow="horizontal"
+                        onClick={()=>this.props.history.push('/address')}
+                    >收货地址</List.Item>
                     <List.Item arrow="horizontal">设置</List.Item>
                     </List>
                 </div>
