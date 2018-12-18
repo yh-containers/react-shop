@@ -7,6 +7,8 @@ import cart from './cart'
 import orderPreview from './orderPreview'
 import address from './address'
 import pay from './pay'
+import orderList from './orderList'
+import orderDetail from './orderDetail'
 
 export default combineReducers({
     globalData,
@@ -16,4 +18,6 @@ export default combineReducers({
     orderPreview,
     address,
     pay,
+    orderList,
+    orderDetail,
 })

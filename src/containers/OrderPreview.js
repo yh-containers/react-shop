@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import BaseContainer from "./Base";
 
-import { NavBar, Icon,List,Card,InputItem,Button } from 'antd-mobile';
+import { NavBar, Icon,List,Card,InputItem,Button,Toast } from 'antd-mobile';
 import  '../assets/css/OrderPreview.css'
 import {initData,destroyData,addRemark} from "../reducers/orderPreview";
 import {initData as addressInitData} from "../reducers/address";
@@ -59,6 +59,12 @@ class OrderPreviewContainer extends BaseContainer {
 
     //生成订单
     handleCreateOrder(){
+        if(!this.login_user_id){
+            Toast.show('请先登录')
+            this.props.history.push('/login')
+            return;
+        }
+
         var order={},invoice=this.props.invoice
         order['addr_id'] = this.props.addr_info.id
         order['invoice_type'] = this.props.invoice_type

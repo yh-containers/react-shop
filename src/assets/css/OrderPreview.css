@@ -173,3 +173,12 @@
 .content .result-block .item .result.red{
     color: #ff4444;
 }
+
+.order-btn{
+    margin-top: 8px;
+    display: flex;
+    justify-content: flex-end;
+}
+.order-btn a{
+    margin-right: 3px;
+}

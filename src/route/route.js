@@ -9,6 +9,8 @@ import OrderPreviewContainer from "../containers/OrderPreview";
 import AddressContainer from "../containers/Address";
 import AddressOptContainer from "../containers/AddressOpt";
 import PayContainer from "../containers/Pay";
+import OrderListContainer from "../containers/OrderList";
+import OrderDetailContainer from "../containers/OrderDetail";
 
 export  const routes = [
 
@@ -48,6 +50,18 @@ export  const routes = [
         exact:true,
         strict:true,
         component: AddressOptContainer
+    },
+    {
+        path:'/order-list/:initial_page(\\d+)?',
+        exact:true,
+        strict:true,
+        component: OrderListContainer
+    },
+    {
+        path:'/order-detail/:id(\\d+)?',
+        exact:true,
+        strict:true,
+        component: OrderDetailContainer
     },
     {
         path:'/',

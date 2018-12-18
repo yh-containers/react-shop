@@ -13,6 +13,7 @@ class MineContainer extends BaseContainer {
     }
 
     render() {
+        console.log(this.props)
         return (
             <div id="mine-page">
                 <div className="header">
@@ -33,7 +34,7 @@ class MineContainer extends BaseContainer {
                 </div>
 
                 <div className="list-block">
-                    <List.Item arrow="horizontal" >
+                    <List.Item arrow="horizontal" onClick={()=>this.props.history.push('/order-list')}>
                         我的订单
                     </List.Item>
                     <List className="order">
@@ -41,7 +42,7 @@ class MineContainer extends BaseContainer {
                             align="center"
                         >
                             <Flex.Item>
-                                <Link to="wait-pay">
+                                <Link to="/order-list/1">
                                     <Badge
                                         text={99}
                                     >
@@ -51,25 +52,25 @@ class MineContainer extends BaseContainer {
                                 </Link>
                             </Flex.Item>
                             <Flex.Item>
-                                <Link to="wait-pay">
+                                <Link to="/order-list/2">
                                 <CustomIcon  type={require('../assets/fonts/iconfont/message.svg')}/>
                                 待发货
                                 </Link>
                             </Flex.Item>
                             <Flex.Item>
-                                <Link to="wait-pay">
+                                <Link to="/order-list/3">
                                 <CustomIcon  type={require('../assets/fonts/iconfont/message.svg')}/>
                                 待收货
                                 </Link>
                             </Flex.Item>
                             <Flex.Item>
-                                <Link to="wait-pay">
+                                <Link to="/goods-comments">
                                 <CustomIcon  type={require('../assets/fonts/iconfont/message.svg')}/>
                                 评价管理
                                 </Link>
                             </Flex.Item>
                             <Flex.Item>
-                                <Link to="wait-pay">
+                                <Link to="/goods-after-sale">
                                 <CustomIcon  type={require('../assets/fonts/iconfont/message.svg')}/>
                                 退货/售后
                                 </Link>

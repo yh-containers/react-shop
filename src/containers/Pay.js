@@ -7,11 +7,27 @@ import '../assets/css/pay.css'
 import WrapWithAjaxData from "../components/WrapWithAjaxData";
 import {initData,choosePayWay} from "../reducers/pay";
 import BaseContainer from "./Base";
+import Wechat from '../components/Wechat'
+
 
 class PayContainer extends BaseContainer {
     static propTypes = {
         initData:PropTypes.func,
         choosePayWay:PropTypes.func,
+    }
+
+    constructor(props){
+        super(props)
+
+        var {location} = props
+        this.state={
+            // url:document.location.href,
+        }
+    }
+
+    componentWillMount()
+    {
+
     }
 
     handlePayWay(index){
@@ -23,13 +39,15 @@ class PayContainer extends BaseContainer {
         var req_object = {
             order_id:order_id,
             pay_id:this.props.pay_id,
-            pay_mode:'JSAPI',
+            pay_mode:'MWEB',
             open_id:'wx82644aa09da720bf',
         }
         this.sendAjax('order-pay-sign',req_object,(data)=>{
             console.log(data)
         })
     }
+
+
     render() {
         return (
             <div id='pay-page'>

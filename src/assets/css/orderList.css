@@ -1,0 +1,8 @@
+#order-list-page{
+    background: #dcdcdc;
+    display: flex;
+    flex-direction: column;
+}
+.order-info{
+    border-top: 1px solid #cccccc;
+}

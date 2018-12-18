@@ -1,14 +1,13 @@
 import axios from "axios";
 import { Toast} from 'antd-mobile';
 
-import config from './axios.config'
+import config,{BASE_URL} from './axios.config'
 
 var qs = require('qs');
 //引入api接口文档
 const config_url = config.url
-
 export const axiosInstance = axios.create({
-    baseURL: 'http://127.0.0.1:8082/api.php/',
+    baseURL: BASE_URL,
     // `timeout` 指定请求超时的毫秒数(0 表示无超时时间)
     // 如果请求话费了超过 `timeout` 的时间，请求将被中断
     timeout: 0,

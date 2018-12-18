@@ -21,5 +21,11 @@ export default {
         'order-generator'       : ['order/generatorOrder','post'],
         'order-pay'             : ['order/pay','get'],
         'order-pay-sign'        : ['order/paySign','get'],
+
+        'order-list'            : ['user/orderList','get'],
+        'order-detail'            : ['user/orderDetail','get'],
+
+
+        'third-wechat-jsapi-config': ['third/getWechantAccessToken','post'],
     }
 }
